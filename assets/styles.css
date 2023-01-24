@@ -18,7 +18,7 @@ body {
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background-color: aliceblue;
+  background-color: blue;
 }
 
 /* container styles*/
@@ -46,4 +46,26 @@ body {
   padding: 5px 10px;
   outline: none;
   cursor: pointer;
+}
+/* btn-hover styles*/
+.btn:hover {
+  background-color: aliceblue;
+}
+/* start&next styles*/
+.start-btn,
+.next-btn {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+/* controls styles*/
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* hide styles*/
+.hide {
+  display: none;
 }
