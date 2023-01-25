@@ -1,13 +1,60 @@
 var startButton = document.getElementById("start-btn");
-var nextButton = document.getElementById("next-btn");
-
 var questionContainerEl = document.getElementById("question-container");
 var questionEl = document.getElementById("question");
 var answerButtonEl = document.getElementById("answer-buttons");
+//let shuffledQuestion, currentQuestionIndex;
 
-var shuffledQuestions, currectQuestionIndex;
-var quizScore = 0;
+startButton.addEventListener("click", startGame);
 
+function startGame() {
+  console.log("hi andra");
+  startButton.classList.add("hide");
+  currentQuestionIndex = 0;
+  questionContainerEl.classList.remove("hide");
+  setNextQuestion();
+}
+// Timer function
+function startTimer() {
+  timerEl.textContent = secondsLeft;
+  let timerInterval = setInterval(() => {
+    secondsLeft--;
+    timerEl.textContent = secondsLeft;
+    if (secondsLeft <= 0) {
+      clearInterval(timerInterval);
+      endGame();
+    }
+  }, 1000);
+}
+function nextQuestion() {
+  currentQ++;
+  // If there are no more questions, end the game
+  if (currentQ === shuffledQuestionBank.length) {
+    secondsLeft = 0;
+    endGame();
+  } else {
+    // Otherwise populate questionEl
+    questionEl.textContent = shuffledQuestionBank[current].question;
+    // and populate answer buttons
+    let arr = [answer1, answer2, answer3, answer4];
+    let i = 0;
+    arr.forEach((element) => {
+      element.textContent =
+        shuffledQuestionBank[currentQ].answersArray[i].answer;
+      i++;
+    }, i);
+  }
+}
+
+function getCorrectAnswer(current) {
+  let arr = shuffledQuestionBank[currentQ].answersArray;
+  // loop through answersArray, identify correct answer
+  for (let j = 0; j < arr.length; j++) {
+    if (arr[j].correct) {
+      // return correct answer.
+      return arr[j].answer;
+    }
+  }
+}
 var qiestion = [
   {
     questios: "Which language runs in a web browser?",
@@ -46,5 +93,3 @@ var qiestion = [
     ],
   },
 ];
-
-sklfsfla;
