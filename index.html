@@ -10,22 +10,42 @@
   <body>
     <div class="container">
       <div id="question-container" class="hide">
-        <div id="question">Question</div>
-        <div id="answer-buttons" class="btn-grid">
-          <button class="btn">Answer 1</button>
-          <button class="btn">Answer 2</button>
-          <button class="btn">Answer 3</button>
-          <button class="btn">Answer 4</button>
+        <header>
+          <h1 id="h1">Questions</h1>
+        </header>
+        <!-- added a tracker-->
+        <div id="tracker">
+          <div class="nos" id="no1">1</div>
+          <div class="nos" id="no2">2</div>
+          <div class="nos" id="no3">3</div>
+          <div class="nos" id="no4">4</div>
         </div>
+        <hr />
+        <!-- added quizset for questions-->
+        <div id="quizset">
+          <p id="questions"></p>
+          <!-- added options for selecting questions-->
+          <div id="options" class="options"></div>
+          <button id="btn1" class="button"><span id="opition1"></span></button>
+          <button id="btn2" class="button"><span id="opition2"></span></button>
+          <button id="btn3" class="button"><span id="opition3"></span></button>
+          <button id="btn4" class="button"><span id="opition4"></span></button>
+        </div>
+        <!-- added next question button-->
+        <button id="next-btn">Next Qusestion</button>
+        <!-- added results-->
+        <div id="Score">
+          <p id="right-answers">Retake Test</p>
+          <button id="Retake">Retake</button>
+        </div>
+        <hr />
       </div>
+      <!-- added a controls for start button-->
       <div class="controls">
         <button id="start-btn" class="start-btn btn">Start</button>
-        <button id="next-btn" class="next-btn btn hide">Next</button>
       </div>
     </div>
-    <div class="Score">
-      <span id="right-answers"></span>
-    </div>
+
     <script src="./assets/script.js"></script>
   </body>
 </html>
