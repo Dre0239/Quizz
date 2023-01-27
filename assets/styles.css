@@ -1,33 +1,46 @@
-*,
-*::before,
-*::after {
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   font-family: "Times New Roman", Times, serif;
+  user-select: none;
 }
 /* root styles*/
 :root {
   --hue-neutral: 200;
 }
 
-/* body styles*/
-body {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  background-color: blue;
+p {
+  margin: 10px;
+  padding: 10px;
 }
 
+/* body styles*/
+//*body {
+  position: relative;
+  background-color: blue;
+  height: auto;
+  width: 900px;
+  margin: 30px auto;
+}
+/* header styles*/
+#h1 {
+  position: relative;
+  text-align: center;
+  background-color: blue;
+  border-radius: 40px;
+}
+.qp {
+  text-align: center;
+}
 /* container styles*/
 .container {
   width: 800px;
-  max-width: 80%;
+  position: relative;
+  height: auto;
   background-color: aquamarine;
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: 40px;
+  margin: 30px auto;
   box-shadow: 0 0 10px 2px;
 }
 /* body styles*/
@@ -38,7 +51,16 @@ body {
   margin: 20px 0;
 }
 /* buttons styles*/
-.btn {
+.button {
+  --hue: var(--hue-neutral);
+  border: 1px solid hsl(var(--hue), 100%, 30%);
+  background-color: hsl(var(--hue), 100%, 50%);
+  border-radius: 5px;
+  padding: 5px 10px;
+  outline: none;
+  cursor: pointer;
+}
+.nos {
   --hue: var(--hue-neutral);
   border: 1px solid hsl(var(--hue), 100%, 30%);
   background-color: hsl(var(--hue), 100%, 50%);
@@ -48,17 +70,31 @@ body {
   cursor: pointer;
 }
 /* btn-hover styles*/
-.btn:hover {
+.button:hover {
   background-color: aliceblue;
 }
 /* start&next styles*/
-.start-btn,
-.next-btn {
+.start-btn {
   font-size: 1.5rem;
   font-weight: bold;
   padding: 10px 20px;
   cursor: pointer;
 }
+
+.next-btn {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+#retake {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
 /* controls styles*/
 .controls {
   display: flex;

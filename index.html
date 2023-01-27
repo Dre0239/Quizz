@@ -10,8 +10,9 @@
   <body>
     <div class="container">
       <div id="question-container" class="hide">
+        <!-- added a header-->
         <header>
-          <h1 id="h1">Questions</h1>
+          <h1 id="h1" class="qp">Quizz Questions</h1>
         </header>
         <!-- added a tracker-->
         <div id="tracker">
@@ -40,13 +41,18 @@
           </button>
         </div>
         <!-- added next question button-->
-        <button id="next-btn">Next Qusestion</button>
+        <button id="next-btn" class="next-btn btn">Next Qusestion</button>
         <!-- added results-->
         <div id="Score">
           <p id="right-answers">Retake Test</p>
-          <button id="Retake">Retake</button>
+          <button id="retake">Retake</button>
         </div>
         <hr />
+
+        <footer>
+          <p id="progress">Questions 1 of 4</p>
+          <div id="timer">Timer</div>
+        </footer>
       </div>
       <!-- added a controls for start button-->
       <div class="controls">
