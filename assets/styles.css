@@ -50,16 +50,29 @@ p {
   gap: 10px;
   margin: 20px 0;
 }
+/* opitions styles*/
+.opitions {
+position: relative;
+width: 550px;
+margin-top: 15px ;
+}
 /* buttons styles*/
 .button {
+  position: relative;
+  width: 250px;
+  height: auto;
   --hue: var(--hue-neutral);
   border: 1px solid hsl(var(--hue), 100%, 30%);
   background-color: hsl(var(--hue), 100%, 50%);
-  border-radius: 5px;
+  border-radius: 75px;
   padding: 5px 10px;
   outline: none;
   cursor: pointer;
+  margin: 10px;
+
 }
+
+
 /* tracker styles*/
 #tracker {
   position: relative;
@@ -84,6 +97,23 @@ border: 1.5px solid navy;
 
 
 }
+/* h1 styles*/
+hr {
+
+  border: 2px solid crimson;
+}
+/* quizset styles*/
+#questions {
+  position: relative;
+  color: white;
+  font-size: 35px;
+  font-weight: bolder;
+  text-align: left;
+  margin-left: 10px;
+}
+
+
+
 
 
 /* btn-hover styles*/
@@ -92,25 +122,60 @@ border: 1.5px solid navy;
 }
 /* start&next styles*/
 .start-btn {
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding: 10px 20px;
+  position: relative;
+  float: center;
+  background-color: lightgray;
+  color: navy;
+  width: 230px;
+  padding: 7px;
   cursor: pointer;
+  border-radius: 50px;
+  font-size: 28px;
+  box-shadow:2px 2px 0px 0px ;
+  margin: 5px 0px 0px 10px;
+  text-align: center;
 }
 
 .next-btn {
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding: 5px 10px;
+  position: relative;
+  float: right;
+  background-color: lightgray;
+  color: navy;
+  width: 230px;
+  padding: 7px;
   cursor: pointer;
+  border-radius: 50px;
+  font-size: 28px;
+  box-shadow:2px 2px 0px 0px ;
+  margin: 5px 0px 0px 10px;
+  text-align: center;
+}
+.next-btn:hover {
+background-color: darkgray;
 }
 
 #retake {
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding: 5px 10px;
-  cursor: pointer;
+ 
 }
+
+#quizSet {
+  display: none;
+}
+/* footer & progress & timer styles*/
+footer {
+position: relative;
+}
+#progress {
+  position: relative;
+  color: white;
+}
+#timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
 
 /* controls styles*/
 .controls {
