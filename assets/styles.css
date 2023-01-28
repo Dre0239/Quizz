@@ -154,13 +154,37 @@ hr {
 background-color: darkgray;
 }
 
-#retake {
- 
-}
+
 
 #quizSet {
-  display: none;
+ 
 }
+/* score&result styles*/
+#result {
+text-align: center;
+font-size:40 px;
+color: white;
+display: none;
+}
+
+#retake {
+position: relative;
+margin: 10px auto 25px auto;
+display: flex;
+font-size: 28px;
+box-shadow:2px 2px 0px 0px ;
+color: navy;
+border-radius: 50px;
+background-color: lightgray;
+width: 230px;
+display: none;
+cursor: pointer;
+}
+#retake:hover {
+  background-color: darkgray;
+  text-align: center;
+}
+
 /* footer & progress & timer styles*/
 footer {
 position: relative;
