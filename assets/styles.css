@@ -60,15 +60,32 @@ p {
   outline: none;
   cursor: pointer;
 }
-.nos {
-  --hue: var(--hue-neutral);
-  border: 1px solid hsl(var(--hue), 100%, 30%);
-  background-color: hsl(var(--hue), 100%, 50%);
-  border-radius: 5px;
-  padding: 5px 10px;
-  outline: none;
-  cursor: pointer;
+/* tracker styles*/
+#tracker {
+  position: relative;
+  margin: 20px 10px 10px 10px;
+  padding: 0 10px 0px 10px;  
 }
+/* nos styles*/
+.nos{
+position: relative;
+display: inline-block;
+width: 50px;
+height: 50px;
+background-color: lightgray;
+border-radius: 50%;
+text-align: center;
+color: navy;
+padding: 15px;
+margin: 0px 50px 50px 50px;
+font-weight: bolder ;
+font-size: 22px;
+border: 1.5px solid navy;
+
+
+}
+
+
 /* btn-hover styles*/
 .button:hover {
   background-color: aliceblue;
