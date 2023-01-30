@@ -1,6 +1,13 @@
 # Quiz
 
-This is all I have on the quiz. I am lost and requre more help. It has caused me a great bit of difficulty.
-My issues not sure how to set up the containers correly in html then with the javascript correctly. I am lost!!! Please Help. I want to be able to resubmit this project and get a better grade.
+## Challenge 4
 
-I can click the start button. I can see the four buttons and that's it!
+## Web-APIs
+
+## Coding Quiz
+
+Unit 4 challenge was to build and online quiz by manipulating the DOM. The user answers a series of multiple choice questions. No starter code was given. I had to build the html, css and js files. This project utilized and increased my knowledge of: event listeners, timers/intervals and interval clears, text content, local storage, and query selectors.
+
+<img src="./assets/Quizz.png" alt ="pic of app" title="Quizz" />
+
+## https://dre0239.github.io/Quizz/

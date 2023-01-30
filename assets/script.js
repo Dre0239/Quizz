@@ -1,95 +1,275 @@
-var startButton = document.getElementById("start-btn");
-var questionContainerEl = document.getElementById("question-container");
-var questionEl = document.getElementById("question");
-var answerButtonEl = document.getElementById("answer-buttons");
-//let shuffledQuestion, currentQuestionIndex;
+// Set and initialize variables
 
-startButton.addEventListener("click", startGame);
+var questionCount = 0;
+var score = 0;
+var ans;
+var timedOut = 0;
+var rand;
+var record = [];
+var status = 0;
 
-function startGame() {
-  console.log("hi andra");
-  startButton.classList.add("hide");
-  currentQuestionIndex = 0;
-  questionContainerEl.classList.remove("hide");
-  setNextQuestion();
+function $(id) {
+  return document.getElementById(id);
 }
-// Timer function
-function startTimer() {
-  timerEl.textContent = secondsLeft;
-  let timerInterval = setInterval(() => {
-    secondsLeft--;
-    timerEl.textContent = secondsLeft;
-    if (secondsLeft <= 0) {
-      clearInterval(timerInterval);
-      endGame();
-    }
-  }, 1000);
+
+var quiz = $("quiz");
+var quizSet = $("quizSet");
+var resultBox = $("resultBox");
+var question = $("question");
+var option1 = $("option1");
+var option2 = $("option2");
+var option3 = $("option3");
+var option4 = $("option4");
+var submit = $("submit");
+var progress = $("progress");
+var result = $("result");
+var retake = $("retake");
+var button1 = $("btn1");
+var button2 = $("btn2");
+var button3 = $("btn3");
+var button4 = $("btn4");
+
+var tracker;
+var countDown;
+var secsInput = 15;
+var seconds = secsInput;
+var t;
+
+//Setting the question
+function setQuestion(qCount, rand) {
+  var ques = questions[rand];
+  question.textContent = qCount + 1 + ". " + ques.question;
+  option1.textContent = ques.option1;
+  option2.textContent = ques.option2;
+  option3.textContent = ques.option3;
+  option4.textContent = ques.option4;
 }
-function nextQuestion() {
-  currentQ++;
-  // If there are no more questions, end the game
-  if (currentQ === shuffledQuestionBank.length) {
-    secondsLeft = 0;
-    endGame();
+
+function changeProgressBar(qCount) {
+  progress.innerHTML = "Question " + (qCount + 1) + " of 4";
+  tracker = $("no" + (qCount + 1));
+  tracker.style.backgroundColor = "#cc7a00";
+}
+
+function defaultOptionColors() {
+  button1.style.backgroundColor = "#e6f3ff";
+  button2.style.backgroundColor = "#e6f3ff";
+  button3.style.backgroundColor = "#e6f3ff";
+  button4.style.backgroundColor = "#e6f3ff";
+}
+
+function getQuestion(qCount, rand) {
+  if (qCount == 3) {
+    //last question
+    submit.innerHTML = "Submit Test";
+    submit.style.backgroundColor = "#00b300";
+  }
+
+  if (qCount > 3) {
+    return;
+  }
+
+  setQuestion(qCount, rand);
+  changeProgressBar(qCount);
+  defaultOptionColors();
+
+  startTimer(seconds, "timer");
+}
+
+function setCorrect() {
+  score++;
+  tracker.style.backgroundColor = "#009900";
+}
+
+function setWrong() {
+  tracker.style.backgroundColor = "#cc0000";
+}
+
+function finalScore() {
+  if (score > 5) {
+    result.innerHTML =
+      "Congrats! You passed! <br/> Your score is " + score + "!";
   } else {
-    // Otherwise populate questionEl
-    questionEl.textContent = shuffledQuestionBank[current].question;
-    // and populate answer buttons
-    let arr = [answer1, answer2, answer3, answer4];
-    let i = 0;
-    arr.forEach((element) => {
-      element.textContent =
-        shuffledQuestionBank[currentQ].answersArray[i].answer;
-      i++;
-    }, i);
+    result.innerHTML = "Sorry. You failed. <br/> Your score is " + score + "!";
   }
 }
 
-function getCorrectAnswer(current) {
-  let arr = shuffledQuestionBank[currentQ].answersArray;
-  // loop through answersArray, identify correct answer
-  for (let j = 0; j < arr.length; j++) {
-    if (arr[j].correct) {
-      // return correct answer.
-      return arr[j].answer;
+function setResultPage() {
+  quizSet.style.display = "none";
+  resultBox.style.display = "block";
+  progress.innerHTML = "Quiz Completed";
+  timer.textContent = "00:00";
+  finalScore();
+}
+
+// generate random, unused number and set timer
+function randomGenerator() {
+  while (status == 0) {
+    rand = Math.round(Math.random() * questions.length);
+    if (rand !== questions.length) {
+      //run through record array to find if its unique
+      for (var j = 0; j < record.length; j++) {
+        if (rand === record[j]) {
+          break;
+        } else if (j == record.length - 1) {
+          record[questionCount] = rand;
+          status = 1;
+        }
+      }
+    }
+  }
+  status = 0;
+
+  return rand;
+}
+
+//Timer function
+function startTimer(secs, elem) {
+  t = $(elem);
+  t.innerHTML = "00:" + secs;
+
+  if (secs < 0) {
+    clearTimeout(countDown);
+    //call the next question or set the result page
+
+    //no option selected - wrong
+    if (
+      button1.style.backgroundColor !== "rgb(26, 255, 26)" &&
+      button2.style.backgroundColor !== "rgb(26, 255, 26)" &&
+      button3.style.backgroundColor !== "rgb(26, 255, 26)" &&
+      button4.style.backgroundColor !== "rgb(26, 255, 26)"
+    ) {
+      //if we are at the last question
+      if (questionCount == 9) {
+        setWrong();
+        setResultPage();
+        return;
+      }
+      setWrong();
+      secs = secsInput;
+      getQuestion(++questionCount, randomGenerator());
+    } else {
+      if (questionCount == 9) {
+        if (ans === questions[rand].answer) {
+          setCorrect();
+        } else {
+          setWrong();
+        }
+        setResultPage();
+        return;
+      }
+
+      if (ans == questions[rand].answer) {
+        setCorrect();
+        secs = secsInput;
+        getQuestion(++questionCount, randomGenerator());
+      } else {
+        setWrong();
+        secs = secsInput;
+        getQuestion(++questionCount, randomGenerator());
+      }
+    }
+    return;
+  }
+
+  secs--;
+  //recurring function
+  countDown = setTimeout("startTimer(" + secs + ',"' + elem + '")', 1000);
+}
+
+//startTimer(seconds,"timer");
+
+option1.addEventListener("click", optionSelect);
+option2.addEventListener("click", optionSelect);
+option3.addEventListener("click", optionSelect);
+option4.addEventListener("click", optionSelect);
+
+function optionSelect(e) {
+  //get parent element and change background color
+  var parentEl = e.target.parentElement;
+  parentEl.style.backgroundColor = "#1aff1a";
+
+  //switch statement - the other buttons' colors go back to default
+  switch (e.target.id) {
+    case "option1":
+      button2.style.backgroundColor = "#e6f3ff";
+      button3.style.backgroundColor = "#e6f3ff";
+      button4.style.backgroundColor = "#e6f3ff";
+      break;
+    case "option2":
+      button1.style.backgroundColor = "#e6f3ff";
+      button3.style.backgroundColor = "#e6f3ff";
+      button4.style.backgroundColor = "#e6f3ff";
+      break;
+    case "option3":
+      button1.style.backgroundColor = "#e6f3ff";
+      button2.style.backgroundColor = "#e6f3ff";
+      button4.style.backgroundColor = "#e6f3ff";
+      break;
+    case "option4":
+      button1.style.backgroundColor = "#e6f3ff";
+      button2.style.backgroundColor = "#e6f3ff";
+      button3.style.backgroundColor = "#e6f3ff";
+      break;
+  }
+
+  //set ans value based on the option selected
+  ans = parseInt(e.target.id.replace("option", ""), 4);
+}
+
+// loading the next question
+submit.addEventListener("click", nextQuestion);
+
+function nextQuestion() {
+  //no option selected
+  console.log(button1.style.backgroundColor);
+  console.log(button1.style.backgroundColor !== "rgb(26, 255, 26)");
+  if (
+    button1.style.backgroundColor !== "rgb(26, 255, 26)" &&
+    button2.style.backgroundColor !== "rgb(26, 255, 26)" &&
+    button3.style.backgroundColor !== "rgb(26, 255, 26)" &&
+    button4.style.backgroundColor !== "rgb(26, 255, 26)"
+  ) {
+    alert("Please select an option");
+    return;
+  } else {
+    clearTimeout(countDown);
+    secs = secsInput;
+
+    //if its the last question - load result page
+    if (questionCount == 3 && questionCount != 4) {
+      if (ans == questions[rand].answer) {
+        setCorrect();
+      } else {
+        setWrong();
+      }
+      setResultPage();
+      return;
+    }
+
+    if (ans == questions[rand].answer) {
+      setCorrect();
+      getQuestion(++questionCount, randomGenerator());
+    } else {
+      setWrong();
+      getQuestion(++questionCount, randomGenerator());
     }
   }
 }
-var qiestion = [
-  {
-    questios: "Which language runs in a web browser?",
-    answers: [
-      { text: "Java", correct: false },
-      { text: "C+", correct: false },
-      { text: "Python", correct: false },
-      { text: "JavaScript", correct: true },
-    ],
-  },
-  {
-    questios: "What year was JavaScript launched??",
-    answers: [
-      { text: "1996", correct: false },
-      { text: "1995", correct: true },
-      { text: "1990", correct: false },
-      { text: "none of the above", correct: false },
-    ],
-  },
-  {
-    questios: " How does a for loops start?",
-    answers: [
-      { text: "for (i = 0 ; i <= 5)", correct: false },
-      { text: "for (i =0 ; i <= 5 ; i++)", correct: true },
-      { text: "for (i <=5 ; i++)", correct: false },
-      { text: "for (i = 1 to 5)", correct: true },
-    ],
-  },
-  {
-    questios: " How do you round a number to the nearest integer?",
-    answers: [
-      { text: "Math.round", correct: true },
-      { text: "rnd", correct: false },
-      { text: "Round", correct: false },
-      { text: "Math.rnd", correct: false },
-    ],
-  },
-];
+
+//retake button
+retake.addEventListener("click", retakeTest);
+
+function retakeTest() {
+  window.location.reload();
+}
+
+rand = Math.round(Math.random() * questions.length);
+while (rand == questions.length) {
+  rand = Math.round(Math.random() * questions.length);
+}
+
+record[0] = rand;
+
+//onload function
+window.onload = getQuestion(questionCount, rand);
